@@ -1,0 +1,512 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FLAMES 💗🔥</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            font-family: "Trebuchet MS", Arial, sans-serif;
+            background: linear-gradient(135deg, #ffd6e7, #eadcff, #ffe5c2);
+            background-size: 300% 300%;
+            animation: backgroundMove 8s infinite alternate;
+            overflow-x: hidden;
+        }
+
+        .card {
+            width: 100%;
+            max-width: 470px;
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            padding: 35px 25px;
+            background: rgba(255, 255, 255, 0.88);
+            border: 2px solid white;
+            border-radius: 30px;
+            box-shadow: 0 15px 45px rgba(215, 80, 145, 0.22);
+            animation: appear 0.8s ease;
+        }
+
+        .flame-icon {
+            font-size: 55px;
+            animation: wiggle 1.5s infinite;
+        }
+
+        h1 {
+            color: #ec368b;
+            font-size: 43px;
+            margin: 10px 0;
+            letter-spacing: 5px;
+            text-shadow: 2px 3px 0 #ffd3e6;
+            animation: titleGlow 2s infinite alternate;
+        }
+
+        .subtitle {
+            color: #86617f;
+            font-size: 15px;
+            margin-bottom: 28px;
+        }
+
+        label {
+            display: block;
+            text-align: left;
+            color: #744766;
+            font-weight: bold;
+            margin: 16px 0 7px;
+        }
+
+        input {
+            width: 100%;
+            padding: 14px;
+            border: 2px solid #ffc2df;
+            border-radius: 14px;
+            outline: none;
+            background: #fff9fc;
+            font-size: 16px;
+            transition: 0.3s;
+        }
+
+        input:focus {
+            border-color: #ed4196;
+            box-shadow: 0 0 12px #ffc2df;
+        }
+
+        button {
+            margin-top: 24px;
+            padding: 14px 28px;
+            border: none;
+            border-radius: 50px;
+            background: linear-gradient(45deg, #ff4598, #ff82b5);
+            color: white;
+            font-size: 17px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 6px 18px #ffc0db;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            transform: translateY(-4px) scale(1.05);
+            box-shadow: 0 9px 22px #f5a3c9;
+        }
+
+        button:active {
+            transform: scale(0.96);
+        }
+
+        .result-panel {
+            display: none;
+            margin-top: 28px;
+            padding: 20px 12px;
+            background: #fff0f7;
+            border: 1px solid #ffd2e5;
+            border-radius: 22px;
+            animation: appear 0.6s ease;
+        }
+
+        .result-panel.show {
+            display: block;
+        }
+
+        .count {
+            color: #98708e;
+            font-size: 14px;
+            margin-bottom: 14px;
+        }
+
+        .result-title {
+            color: #df3288;
+            font-size: 24px;
+            line-height: 1.5;
+            overflow-wrap: anywhere;
+        }
+
+        .result-description {
+            color: #82516e;
+            font-size: 18px;
+            line-height: 1.7;
+            overflow-wrap: anywhere;
+        }
+
+        /* Big glowing love heart */
+
+        .big-heart {
+            font-size: 105px;
+            line-height: 1.4;
+            animation: heartBeat 0.8s infinite,
+                       heartGlow 1.3s infinite alternate;
+        }
+
+        .thinking {
+            color: #e33b91;
+            font-weight: bold;
+            animation: blink 0.8s infinite alternate;
+        }
+
+        .flames-letters {
+            font-size: 25px;
+            letter-spacing: 7px;
+            color: #bc77a1;
+            margin: 18px 0 0;
+        }
+
+        .footer {
+            margin-top: 24px;
+            color: #a17c99;
+            font-size: 12px;
+        }
+
+        .floating {
+            position: fixed;
+            bottom: -40px;
+            pointer-events: none;
+            z-index: 1;
+            animation: floatUp 6s linear forwards;
+        }
+
+        @keyframes backgroundMove {
+            from { background-position: 0% 50%; }
+            to { background-position: 100% 50%; }
+        }
+
+        @keyframes appear {
+            from {
+                opacity: 0;
+                transform: translateY(18px) scale(0.92);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        @keyframes wiggle {
+            0%, 100% { transform: rotate(-10deg); }
+            50% { transform: rotate(10deg) scale(1.1); }
+        }
+
+        @keyframes titleGlow {
+            from { text-shadow: 0 0 5px #ffb5d7; }
+            to { text-shadow: 0 0 20px #ff80bd; }
+        }
+
+        @keyframes heartBeat {
+            0%, 100% { transform: scale(1); }
+            25% { transform: scale(1.16); }
+            50% { transform: scale(1); }
+            75% { transform: scale(1.10); }
+        }
+
+        @keyframes heartGlow {
+            from {
+                filter: drop-shadow(0 0 5px #ff6eaf);
+            }
+            to {
+                filter: drop-shadow(0 0 28px #ff2992);
+            }
+        }
+
+        @keyframes blink {
+            from { opacity: 0.45; }
+            to { opacity: 1; }
+        }
+
+        @keyframes floatUp {
+            from {
+                transform: translateY(0) rotate(0deg);
+                opacity: 0;
+            }
+            15% { opacity: 1; }
+            to {
+                transform: translateY(-110vh) rotate(300deg);
+                opacity: 0;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .card { padding: 28px 17px; }
+            h1 { font-size: 36px; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <main class="card">
+        <div class="flame-icon">🔥💗🔥</div>
+
+        <h1>FLAMES</h1>
+
+        <p class="subtitle">
+            Discover your fun FLAMES result! 💕✨
+        </p>
+
+        <form id="flamesForm">
+            <label for="name1">Your name: 👤</label>
+            <input
+                type="text"
+                id="name1"
+                placeholder="Enter your name"
+                maxlength="50"
+                required
+            >
+
+            <label for="name2">Your love name: 💖</label>
+            <input
+                type="text"
+                id="name2"
+                placeholder="Enter your love's name"
+                maxlength="50"
+                required
+            >
+
+            <button type="submit">Calculate FLAMES 💘</button>
+        </form>
+
+        <div id="resultPanel" class="result-panel" aria-live="polite">
+            <div id="countInfo" class="count"></div>
+            <div id="resultContent"></div>
+        </div>
+
+        <div class="footer">
+            Made with ❤️, a little math and lots of fun ✨
+        </div>
+    </main>
+
+    <script>
+        const form = document.getElementById("flamesForm");
+        const resultPanel = document.getElementById("resultPanel");
+        const resultContent = document.getElementById("resultContent");
+        const countInfo = document.getElementById("countInfo");
+
+        let loveTimer;
+
+        // Keep letters only and ignore capital letters
+        function cleanName(name) {
+            return [...name.toLowerCase()]
+                .filter(char => /\p{L}/u.test(char));
+        }
+
+        // Remove matching letters one at a time
+        function countRemaining(name1, name2) {
+            const letters1 = cleanName(name1);
+            const letters2 = cleanName(name2);
+            const used = Array(letters2.length).fill(false);
+
+            let remaining = 0;
+
+            for (const letter of letters1) {
+                let found = false;
+
+                for (let j = 0; j < letters2.length; j++) {
+                    if (!used[j] && letter === letters2[j]) {
+                        used[j] = true;
+                        found = true;
+                        break;
+                    }
+                }
+
+                if (!found) {
+                    remaining++;
+                }
+            }
+
+            // Count the unmatched letters in the second name
+            for (let j = 0; j < letters2.length; j++) {
+                if (!used[j]) {
+                    remaining++;
+                }
+            }
+
+            return remaining;
+        }
+
+        // Eliminate letters from FLAMES until only one remains
+        function findFlamesResult(count) {
+            const flames = ["F", "L", "A", "M", "E", "S"];
+            let index = 0;
+
+            while (flames.length > 1) {
+                index = (index + count - 1) % flames.length;
+                flames.splice(index, 1);
+            }
+
+            return flames[0];
+        }
+
+        // Safely create a text element
+        function addMessage(className, text) {
+            const element = document.createElement("div");
+            element.className = className;
+            element.textContent = text;
+            resultContent.appendChild(element);
+            return element;
+        }
+
+        function showResult(name1, name2, letter) {
+            switch (letter) {
+                case "F":
+                    addMessage("result-title", "🤝 FRIENDS 🤝");
+                    addMessage(
+                        "result-description",
+                        name1 + " is a friend of " + name2 + "! 😊💛"
+                    );
+                    break;
+
+                case "L": {
+                    // Show a big glowing pink heart first
+                    addMessage("big-heart", "💗");
+
+                    addMessage("thinking", "Checking the love vibes... 💘");
+
+                    // Show the love message after 2 seconds
+                    loveTimer = setTimeout(function() {
+                        const thinking =
+                            resultContent.querySelector(".thinking");
+
+                        if (thinking) {
+                            thinking.remove();
+                        }
+
+                        addMessage("result-title", "LOVE ❤️‍🔥💕");
+                        addMessage(
+                            "result-description",
+                            name2 + " is your lover! 💖🥰💋"
+                        );
+
+                        celebrate(35);
+                    }, 2000);
+
+                    break;
+                }
+
+                case "A":
+                    addMessage("result-title", "AFFECTION 💖");
+                    addMessage(
+                        "result-description",
+                        "There is affection between " +
+                        name1 + " and " + name2 + "! 🌸💕"
+                    );
+                    break;
+
+                case "M":
+                    addMessage("result-title", "MARRIAGE 💍");
+                    addMessage(
+                        "result-description",
+                        name1 + " and " + name2 +
+                        ": the FLAMES result is Marriage! 💒💞"
+                    );
+                    break;
+
+                case "E":
+                    addMessage("result-title", "ENEMIES 😂⚡");
+                    addMessage(
+                        "result-description",
+                        name1 + " and " + name2 +
+                        " are enemies in this funny game! 😜"
+                    );
+                    break;
+
+                case "S":
+                    addMessage("result-title", "SIBLINGS 👫");
+                    addMessage(
+                        "result-description",
+                        name1 + " and " + name2 +
+                        " are like siblings! 😆💛"
+                    );
+                    break;
+            }
+        }
+
+        // Floating heart and emoji animation
+        function celebrate(number) {
+            const emojis = ["💗", "💕", "✨", "🌸", "💖", "💘", "❤️"];
+
+            for (let i = 0; i < number; i++) {
+                const item = document.createElement("span");
+
+                item.className = "floating";
+                item.textContent =
+                    emojis[Math.floor(Math.random() * emojis.length)];
+
+                item.style.left = Math.random() * 100 + "vw";
+                item.style.fontSize =
+                    (18 + Math.random() * 25) + "px";
+                item.style.animationDelay =
+                    Math.random() * 1.5 + "s";
+
+                document.body.appendChild(item);
+
+                setTimeout(() => item.remove(), 7500);
+            }
+        }
+
+        // Run the game
+        form.addEventListener("submit", function(event) {
+            event.preventDefault();
+
+            clearTimeout(loveTimer);
+
+            const name1 = document.getElementById("name1").value.trim();
+            const name2 = document.getElementById("name2").value.trim();
+
+            if (!cleanName(name1).length ||
+                !cleanName(name2).length) {
+                alert("Please enter names containing letters!");
+                return;
+            }
+
+            resultContent.replaceChildren();
+            resultPanel.classList.add("show");
+
+            const remaining = countRemaining(name1, name2);
+
+            countInfo.textContent =
+                "Letters remaining after removing common letters: " +
+                remaining;
+
+            // A zero count cannot be used to eliminate FLAMES
+            if (remaining === 0) {
+                addMessage(
+                    "result-title",
+                    "All letters matched! 💕"
+                );
+
+                addMessage(
+                    "result-description",
+                    "There are no remaining letters to count. Try another pair of names! 😊"
+                );
+
+                celebrate(12);
+                return;
+            }
+
+            const result = findFlamesResult(remaining);
+
+            // Display the final result
+            showResult(name1, name2, result);
+            celebrate(18);
+        });
+    </script>
+
+</body>
+</html>
